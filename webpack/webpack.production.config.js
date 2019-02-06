@@ -4,10 +4,10 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const path = require('path');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 
-const developmentConfig: Configuration = {
+const developmentConfig = {
 	mode: 'production',
 	output: {
-		filename: '[name].[hash].bundle.js',
+		filename: '[name].[hash:8].bundle.js',
 		path: path.resolve(__dirname, '..', 'dist'),
 	},
 	optimization: {
@@ -18,7 +18,7 @@ const developmentConfig: Configuration = {
 			{
 				test: /\.(css|less)$/,
 				enforce: 'post',
-				use: MiniCssExtractPlugin.loader,
+				loader: MiniCssExtractPlugin.loader,
 			},
 		],
 	},

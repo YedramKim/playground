@@ -18,25 +18,31 @@ const config = {
 		rules: [
 			{
 				test: /\.less$/,
-				enforce: 'pre',
-				use: 'less-loader',
+				use: [
+					'css-loader',
+					'postcss-loader',
+					'less-loader',
+				],
 			},
 			{
-				test: /\.(css|less)$/,
-				loaders: ['postcss-loader', 'css-loader'],
+				test: /\.css$/,
+				use: [
+					'css-loader',
+					'postcss-loader',
+				],
 			},
 			{
 				test: /.js$/,
 				enforce: 'pre',
-				use: 'eslint-loader',
+				loader: 'eslint-loader',
 			},
 			{
 				test: /.js$/,
-				use: 'babel-loader',
+				loader: 'babel-loader',
 			},
 			{
 				test: /.ts$/,
-				loaders: [
+				use: [
 					'babel-loader',
 					{
 						loader: 'ts-loader',
@@ -48,7 +54,7 @@ const config = {
 			},
 			{
 				test: /.vue$/,
-				use: 'vue-loader',
+				loader: 'vue-loader',
 			},
 		],
 	},

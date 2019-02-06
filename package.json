@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "npx jest"
+		"test": "npx jest",
+		"build": "npx webpack-cli --config webpack/webpack.production.config.js",
+		"dev": "npx webpack-dev-server --config webpack/webpack.development.config.js"
   },
   "repository": {
     "type": "git",

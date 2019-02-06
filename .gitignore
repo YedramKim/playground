@@ -1,4 +1,7 @@
 node_modules/*
-**/*.js
-**/*.js.map
-!client/**/*.js
+dist
+
+# 타입스크립트용 ignore
+# **/*.js
+# **/*.js.map
+# !client/**/*.js

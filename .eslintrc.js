@@ -6,9 +6,16 @@ module.exports = {
 		'eslint:recommended',
 		'plugin:vue/recommended',
 	],
+	rules: {
+		'no-console': [
+			'error',
+			{
+				allow: ['info', 'warn', 'error'],
+			},
+		],
+	},
 	plugins: [
 		'vue',
-		'@typescript-eslint/parser',
 	],
 	env: {
 		browser: true,

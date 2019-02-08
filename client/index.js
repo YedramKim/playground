@@ -1,7 +1,10 @@
-import './style.less';
+import './style/style.less';
 
 import Vue from 'vue';
-import App from './App.vue';
+
+import App from './components/App.vue';
+import router from './js/router/index.js';
+import store from './js/store/index.js';
 
 new Vue({
 	el: '#app',

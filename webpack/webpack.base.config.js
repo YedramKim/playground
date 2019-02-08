@@ -67,7 +67,7 @@ const config = {
 	plugins: [
 		new VueLoaderPlugin(),
 		new HtmlWebpackPlugin({
-			template: path.resolve(__dirname, '..', 'client', 'index.html'),
+			template: path.resolve(__dirname, '..', 'client', 'html', 'index.html'),
 		}),
 	],
 };

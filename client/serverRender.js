@@ -11,7 +11,9 @@ Vue.use(Router);
 
 import './style/style.less';
 
-class ServerRender {
+const renderer = require('vue-server-renderer').createRenderer();
+
+class ServerRenderer {
 	constructor() {
 		const router = new Router(routerOption);
 		const store = new Store(storeOption);
@@ -47,6 +49,11 @@ class ServerRender {
 
 		return this.app.$nextTick();
 	}
+
+	async render() {
+		await this.app.$nextTick();
+		return renderer.renderToString(this.app);
+	}
 }
 
-module.exports = ServerRender;
+module.exports = ServerRenderer;

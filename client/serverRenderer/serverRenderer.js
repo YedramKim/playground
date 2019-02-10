@@ -2,14 +2,14 @@ import Vue from 'vue';
 import Vuex, { Store } from 'vuex';
 import Router from 'vue-router';
 
-import App from './components/App.vue';
-import { routerOption } from './js/router/index.js';
-import { storeOption } from './js/store/index.js';
+import App from '../components/App.vue';
+import { routerOption } from '../js/router/index.js';
+import { storeOption } from '../js/store/index.js';
 
 Vue.use(Vuex);
 Vue.use(Router);
 
-import './style/style.less';
+import '../style/style.less';
 
 const renderer = require('vue-server-renderer').createRenderer();
 

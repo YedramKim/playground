@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "npx jest",
-    "build": "npx webpack-cli --config webpack/webpack.production.config.js",
+    "build-client": "npx webpack-cli --config webpack/webpack.production.config.js",
+    "build-ssr": "npx webpack-cli --config webpack/webpack.ssr.config.js",
+    "build": "npm run build-client && npm run build-ssr",
     "dev": "npx webpack-dev-server --config webpack/webpack.development.config.js"
   },
   "repository": {
@@ -51,11 +53,12 @@
     "typescript": "3.2.4",
     "vue-jest": "3.0.2",
     "vue-loader": "15.6.2",
-    "vue-template-compiler": "2.6.2",
+    "vue-template-compiler": "2.6.3",
     "webpack": "4.29.0",
     "webpack-cli": "3.2.1",
     "webpack-dev-server": "3.1.14",
-    "webpack-merge": "4.2.1"
+    "webpack-merge": "4.2.1",
+    "webpack-node-externals": "^1.7.2"
   },
   "dependencies": {
     "@types/express": "4.16.1",
@@ -63,7 +66,7 @@
     "express": "4.16.4",
     "fs-extra": "7.0.1",
     "less": "3.9.0",
-    "vue": "2.6.2",
+    "vue": "2.6.3",
     "vue-router": "3.0.2",
     "vue-server-renderer": "2.6.3",
     "vuex": "3.1.0"

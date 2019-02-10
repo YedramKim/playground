@@ -5,14 +5,15 @@ const VueLoaderPlugin = require('vue-loader/lib/plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const config = {
-	entry: {
-		app: path.resolve(__dirname, '..', 'client', 'index.js'),
-	},
 	optimization: {
 		minimizer: [
 			new TerserWebpackPlugin(),
 			new OptimizeCssAssetsWebpackPlugin(),
 		],
+	},
+	output: {
+		filename: '[name].[hash:8].bundle.js',
+		path: path.resolve(__dirname, '..', 'dist'),
 	},
 	module: {
 		rules: [

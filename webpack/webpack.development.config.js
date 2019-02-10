@@ -3,7 +3,7 @@ const {
 } = require('webpack');
 const path = require('path');
 const merge = require('webpack-merge');
-const baseConfig = require('./webpack.base.config');
+const baseConfig = require('./webpack.client.config');
 
 const developmentConfig = {
 	mode: 'development',

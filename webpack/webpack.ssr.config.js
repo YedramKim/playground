@@ -8,10 +8,11 @@ const baseConfig = require('./webpack.base.config');
 const clientConfig = {
 	mode: 'production',
 	entry: {
-		app: path.resolve(__dirname, '..', 'client', 'serverRenderer', 'serverRenderer.js'),
+		app: path.resolve(__dirname, '..', 'client', 'ssr.js'),
 	},
 	output: {
 		libraryTarget: 'commonjs2',
+		// path: path.resolve(__dirname, '..', 'dist'),
 	},
 	externals: nodeExternals({
 		whitelist: /\.(css|less)$/,
@@ -28,9 +29,7 @@ const clientConfig = {
 		],
 	},
 	plugins: [
-		new VueSSRServerPlugin({
-			// filename: 'server',
-		}),
+		new VueSSRServerPlugin({}),
 	]
 };
 

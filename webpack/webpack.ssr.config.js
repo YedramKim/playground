@@ -12,7 +12,7 @@ const clientConfig = {
 	},
 	output: {
 		libraryTarget: 'commonjs2',
-		// path: path.resolve(__dirname, '..', 'dist'),
+		path: path.resolve(__dirname, '..', 'dist'),
 	},
 	externals: nodeExternals({
 		whitelist: /\.(css|less)$/,

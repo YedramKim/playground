@@ -2,18 +2,17 @@ import Vue from 'vue';
 import Vuex, { Store } from 'vuex';
 import Router from 'vue-router';
 
-import App from '../components/App.vue';
-import { routerOption } from '../js/router/index.js';
-import { storeOption } from '../js/store/index.js';
-
 Vue.use(Vuex);
 Vue.use(Router);
 
-import '../style/style.less';
+import App from './components/App.vue';
+import { routerOption } from './js/router/index.js';
+import { storeOption } from './js/store/index.js';
 
-const renderer = require('vue-server-renderer').createRenderer();
+import './style/style.less';
 
-class ServerRenderer {
+
+class SingleWebApplication {
 	constructor() {
 		const router = new Router(routerOption);
 		const store = new Store(storeOption);
@@ -49,11 +48,16 @@ class ServerRenderer {
 
 		return this.app.$nextTick();
 	}
-
-	async render() {
-		await this.app.$nextTick();
-		return renderer.renderToString(this.app);
-	}
 }
 
-module.exports = ServerRenderer;
+export default async ({
+	location = {},
+	commitDataList = [],
+} = {}) => {
+	const app = new SingleWebApplication();
+
+	await app.routerPush(location);
+	await app.commitStore(commitDataList);
+
+	return app.app;
+};

@@ -20,11 +20,11 @@ const developmentConfig = {
 	},
 	plugins: [
 		new MiniCssExtractPlugin(),
-		new CleanWebpackPlugin([
-			path.resolve(__dirname, '..', 'dist')
-		], {
-			root: path.resolve(__dirname, '..'),
-		}),
+		// new CleanWebpackPlugin([
+		// 	path.resolve(__dirname, '..', 'dist')
+		// ], {
+		// 	root: path.resolve(__dirname, '..'),
+		// }),
 	],
 };
 

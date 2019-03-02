@@ -8,7 +8,10 @@ const baseConfig = require('./webpack.base.config');
 const clientConfig = {
 	mode: 'production',
 	entry: {
-		app: path.resolve(__dirname, '..', 'client', 'ssr.js'),
+		app: [
+			'@babel/polyfill',
+			path.resolve(__dirname, '..', 'client', 'ssr.js'),
+		],
 	},
 	output: {
 		libraryTarget: 'commonjs2',

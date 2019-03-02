@@ -74,6 +74,10 @@ const config = {
 		new VueLoaderPlugin(),
 		new HtmlWebpackPlugin({
 			template: path.resolve(__dirname, '..', 'client', 'html', 'index.html'),
+			minify: {
+				removeComments: false,
+				collapseWhitespace: true,
+			},
 		}),
 	],
 };

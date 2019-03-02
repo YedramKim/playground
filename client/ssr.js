@@ -27,9 +27,9 @@ class SingleWebApplication {
 		});
 	}
 
-	async routerPush(context) {
+	async routerPush(location) {
 		const routerPushPromise = new Promise((resolve, reject) => {
-			this.router.push(context, resolve, reject);
+			this.router.push(location, resolve, reject);
 		});
 
 		await routerPushPromise;
@@ -39,10 +39,10 @@ class SingleWebApplication {
 		});
 	}
 
-	async commitStore(commitDataList) {
-		commitDataList = Array.isArray(commitDataList) ? commitDataList : [commitDataList];
+	async commitStore(storeCommitList) {
+		storeCommitList = Array.isArray(storeCommitList) ? storeCommitList : [storeCommitList];
 
-		for (const { type, payload } of commitDataList) {
+		for (const { type, payload } of storeCommitList) {
 			this.store.commit(type, payload);
 		}
 
@@ -53,12 +53,13 @@ class SingleWebApplication {
 export default async (context = {}) => {
 	const {
 		location = {},
-		commitDataList = [],
+		storeCommitList = [],
 	} = context;
 	const app = new SingleWebApplication();
 
 	await app.routerPush(location);
-	await app.commitStore(commitDataList);
+	await app.commitStore(storeCommitList);
+	context.state = app.app.$store.state;
 
 	return app.app;
 };

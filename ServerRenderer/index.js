@@ -19,16 +19,41 @@ const renderer = createBundleRenderer(serverBundle, {
 });
 
 class ServerRenderer {
-	constructor() {
-		this.defaultContext = {
-			title: '플레이그라운드',
-		};
+	constructor({
+		title = '플레이그라운드',
+		location = {},
+		metaList = [],
+		...context
+	} = {}) {
+		this.title = title;
+		this.location = location;
+		this.context = context;
+		this.metaList = metaList;
 	}
 
-	async render(context = {}) {
+	setTitle(title) {
+		this.defaultContext.title = title;
+	}
+
+	pushMetaList(...metaList) {
+		this.metaList.push(...metaList);
+	}
+
+	computeMetaList() {
+		return this.metaList.map(meta => {
+			const metaStr = Object.entries(meta).map(([key, value]) => `${key}="${value}"`).join(' ');
+
+			return `<meta ${metaStr}>`;
+		}).join('');
+	}
+
+	async render(otherContext = {}) {
 		const html = await renderer.renderToString({
-			...this.defaultContext,
-			...context
+			title: this.title,
+			location: this.location,
+			meta: this.computeMetaList(),
+			...this.context,
+			...otherContext,
 		});
 
 		return htmlMinifier.minify(html, {

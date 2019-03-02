@@ -6,7 +6,10 @@ const VueSSRClientPlugin = require('vue-server-renderer/client-plugin');
 
 const clientConfig = {
 	entry: {
-		app: path.resolve(__dirname, '..', 'client', 'index.js'),
+		app: [
+			'@babel/polyfill',
+			path.resolve(__dirname, '..', 'client', 'index.js'),
+		],
 	},
 
 	plugins: [

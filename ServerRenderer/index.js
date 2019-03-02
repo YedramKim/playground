@@ -14,7 +14,7 @@ const renderer = createBundleRenderer(serverBundle, {
 	clientManifest,
 });
 
-class ServerRender {
+class ServerRenderer {
 	constructor() {}
 
 	render(context = {}) {
@@ -22,4 +22,4 @@ class ServerRender {
 	}
 }
 
-module.exports = ServerRender;
+module.exports = ServerRenderer;

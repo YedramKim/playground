@@ -38,22 +38,6 @@ const config = {
 				loader: 'eslint-loader',
 			},
 			{
-				test: /.js$/,
-				loader: 'babel-loader',
-			},
-			{
-				test: /.ts$/,
-				use: [
-					'babel-loader',
-					{
-						loader: 'ts-loader',
-						options: {
-							appendTsSuffixTo: [/\.vue$/],
-						},
-					},
-				],
-			},
-			{
 				test: /.vue$/,
 				loader: 'vue-loader',
 				options: {

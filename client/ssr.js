@@ -50,10 +50,11 @@ class SingleWebApplication {
 	}
 }
 
-export default async ({
-	location = {},
-	commitDataList = [],
-} = {}) => {
+export default async (context = {}) => {
+	const {
+		location = {},
+		commitDataList = [],
+	} = context;
 	const app = new SingleWebApplication();
 
 	await app.routerPush(location);

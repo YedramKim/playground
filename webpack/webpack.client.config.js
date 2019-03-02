@@ -12,6 +12,27 @@ const clientConfig = {
 		],
 	},
 
+	module: {
+		rules: [
+			{
+				test: /.js$/,
+				loader: 'babel-loader',
+			},
+			{
+				test: /.ts$/,
+				use: [
+					'babel-loader',
+					{
+						loader: 'ts-loader',
+						options: {
+							appendTsSuffixTo: [/\.vue$/],
+						},
+					},
+				],
+			},
+		],
+	},
+
 	plugins: [
 		new VueSSRClientPlugin(),
 	],

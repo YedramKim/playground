@@ -25,9 +25,11 @@ const clientConfig = {
 	module: {
 		rules: [
 			{
-				test: /\.(css|less)$/,
-				enforce: 'post',
-				loader: 'vue-style-loader',
+				test: /.ts$/,
+				loader: 'ts-loader',
+				options: {
+					appendTsSuffixTo: [/\.vue$/],
+				},
 			},
 		],
 	},

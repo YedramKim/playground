@@ -58,8 +58,10 @@
     "vue-loader": "15.6.2",
     "vue-template-compiler": "2.6.7",
     "webpack": "4.29.0",
+    "webpack-bundle-analyzer": "3.1.0",
     "webpack-cli": "3.2.1",
     "webpack-dev-server": "3.1.14",
+    "webpack-jarvis": "0.3.2",
     "webpack-merge": "4.2.1",
     "webpack-node-externals": "1.7.2"
   },

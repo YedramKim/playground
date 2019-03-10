@@ -7,51 +7,53 @@ const {
 
 const serverBundle = require('../dist/vue-ssr-server-bundle.json');
 const clientManifest  = require('../dist/vue-ssr-client-manifest.json');
-const template = fse.readFileSync(path.resolve(__dirname, '..', 'client', 'html', 'index.html'), 'utf-8');
+const templates = require('./templates/index.js');
 
-const renderer = createBundleRenderer(serverBundle, {
-	runInNewContext: false,
-	template,
-	clientManifest,
-	shouldPreload() {
-		return false;
-	},
-});
+const rendererMap = {};
+for (const [templateName, template] of Object.entries(templates)) {
+	rendererMap[templateName] = createBundleRenderer(serverBundle, {
+		runInNewContext: false,
+		clientManifest,
+		template,
+	});
+}
 
 class ServerRenderer {
 	constructor({
 		title = '플레이그라운드',
+		template = 'index',
 		location = {},
-		metaList = [],
 		...context
 	} = {}) {
 		this.title = title;
+		this.template = template;
 		this.location = location;
 		this.context = context;
-		this.metaList = metaList;
 	}
 
 	setTitle(title) {
 		this.defaultContext.title = title;
 	}
 
-	pushMetaList(...metaList) {
-		this.metaList.push(...metaList);
-	}
-
-	computeMetaList() {
-		return this.metaList.map(meta => {
+	computeMetaList(metaList) {
+		return metaList.map(meta => {
 			const metaStr = Object.entries(meta).map(([key, value]) => `${key}="${value}"`).join(' ');
 
 			return `<meta ${metaStr}>`;
 		}).join('');
 	}
 
-	async render(otherContext = {}) {
-		const html = await renderer.renderToString({
+	async render({
+			metaList = [],
+			storeCommitList = [],
+			...otherContext
+		}) {
+
+		const html = await rendererMap[this.template].renderToString({
 			title: this.title,
+			meta: this.computeMetaList(metaList),
 			location: this.location,
-			meta: this.computeMetaList(),
+			storeCommitList,
 			...this.context,
 			...otherContext,
 		});

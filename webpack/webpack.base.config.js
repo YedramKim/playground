@@ -2,7 +2,6 @@ const path = require('path');
 const TerserWebpackPlugin = require('terser-webpack-plugin');
 const OptimizeCssAssetsWebpackPlugin = require('optimize-css-assets-webpack-plugin');
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const config = {
 	optimization: {
@@ -56,13 +55,6 @@ const config = {
 	},
 	plugins: [
 		new VueLoaderPlugin(),
-		new HtmlWebpackPlugin({
-			template: path.resolve(__dirname, '..', 'client', 'html', 'index.html'),
-			minify: {
-				removeComments: false,
-				collapseWhitespace: true,
-			},
-		}),
 	],
 };
 

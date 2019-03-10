@@ -8,7 +8,7 @@ const clientConfig = {
 	entry: {
 		app: [
 			'@babel/polyfill',
-			path.resolve(__dirname, '..', 'client', 'app.js'),
+			path.resolve(__dirname, '..', 'client', 'client.js'),
 		],
 	},
 

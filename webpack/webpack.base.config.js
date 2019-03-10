@@ -11,7 +11,7 @@ const config = {
 		],
 	},
 	output: {
-		filename: '[name].[hash:8].bundle.js',
+		filename: '[name].bundle.js',
 		path: path.resolve(__dirname, '..', 'dist'),
 	},
 	module: {

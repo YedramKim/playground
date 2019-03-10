@@ -10,7 +10,7 @@ const clientConfig = {
 	entry: {
 		app: [
 			'@babel/polyfill',
-			path.resolve(__dirname, '..', 'client', 'ssr.js'),
+			path.resolve(__dirname, '..', 'client', 'server.js'),
 		],
 	},
 	output: {

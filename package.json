@@ -5,7 +5,7 @@
 	"main": "index.js",
 	"scripts": {
 		"test": "npx jest",
-		"lint": "npx eslint --ignore-path ./.gitignore -c ./.eslintrc.js",
+		"lint": "npx eslint --ignore-path ./.gitignore -c ./.eslintrc.js .",
 		"build-client": "npx webpack-cli --config webpack/webpack.production.config.js",
 		"build-ssr": "npx webpack-cli --config webpack/webpack.ssr.config.js",
 		"build": "npm run build-client && npm run build-ssr",

@@ -1,6 +1,4 @@
-const path = require('path');
 const htmlMinifier = require('html-minifier');
-const fse = require('fs-extra');
 const {
 	createBundleRenderer,
 } = require('vue-server-renderer');
@@ -44,10 +42,10 @@ class ServerRenderer {
 	}
 
 	async render({
-			metaList = [],
-			storeCommitList = [],
-			...otherContext
-		}) {
+		metaList = [],
+		storeCommitList = [],
+		...otherContext
+	}) {
 
 		const html = await rendererMap[this.template].renderToString({
 			title: this.title,

@@ -23,6 +23,6 @@ module.exports = {
 	},
 	extends: [
 		'plugin:vue/recommended',
-		'./base.js',
+		'./.eslintrc.js',
 	]
 }

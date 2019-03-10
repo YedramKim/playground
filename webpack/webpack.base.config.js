@@ -35,6 +35,9 @@ const config = {
 				test: /.js$/,
 				enforce: 'pre',
 				loader: 'eslint-loader',
+				options: {
+					configFile: path.resolve(__dirname, '..', '.eslint.vue.js'),
+				},
 			},
 			{
 				test: /.vue$/,

@@ -11,7 +11,6 @@ import { storeOption } from './js/store/index.js';
 
 import './style/style.less';
 
-
 class SingleWebApplication {
 	constructor() {
 		const router = new Router(routerOption);

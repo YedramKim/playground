@@ -1,61 +1,51 @@
 const http = require('http');
 const path = require('path');
-const fse = require('fs-extra');
 const express = require('express');
+
+const {
+	fileSearch,
+} = require('../utils');
 
 class Server {
 	constructor() {
 		this.app = express();
 		this.httpServer = http.createServer(this.app);
+
 		this.context = {};
+		this.middlewares = {};
+		this.routes = [];
 	}
 
-	async _getAllModule(searchDir, returnArray = false, currentPath = __dirname) {
-		const searchPath = path.resolve(currentPath, searchDir);
-		const javascriptRegExp = /\.js/;
-		let result = returnArray ? [] : {};
-
-		const fileList = await fse.readdir(searchPath);
-		const taskList = fileList.map(async file => {
-			const filePath = path.resolve(searchPath, file);
-			const stat = await fse.stat(filePath);
-
-			if (stat.isDirectory()) {
-				return this._getAllModule(file, returnArray, searchPath);
-			} else if (javascriptRegExp.test(file)) {
-				const fileModule = require(filePath);
-
-				return returnArray ? [fileModule] : { [file.replace(javascriptRegExp, '')]: fileModule };
-			}
-		});
-
-		const taskResults = await Promise.all(taskList);
-
-		for (const task of taskResults) {
-			if (returnArray) {
-				result.push(...task);
-			} else {
-				result = {
-					...result,
-					...task,
-				};
-			}
-		}
-
-		return result;
+	async setupServer() {
+		await this._setupMiddleware();
+		await this._setupRoutes();
 	}
 
-	async _setUpServer() {
-		await this._setUpMiddleware();
-		await this._setUpRoutes();
+	async _setupMiddleware() {
+		const middlewarePath = path.resolve(__dirname, 'middleware');
+
+		const middlewarePaths = await fileSearch(middlewarePath);
+		const fileRegExp = /.+\/(.+)\.js$/;
+
+		this.middlewares = middlewarePaths.reduce((middlewares, middlewarePath) => {
+			const middleware = require(middlewarePath);
+
+			return {
+				...middlewares,
+				[path.basename(middlewarePath, '.js')]: middleware,
+			};
+		}, {});
 	}
 
-	async _setUpMiddleware() {}
+	async _setupRoutes() {
+		const routePath = path.resolve(__dirname, 'routes');
+		const routePaths = await fileSearch(routePath);
 
-	async _setUpRoutes() {}
+		this.routes = routePaths.map(routePath => require(routePath));
+	}
 
 	async listen() {
-		await this._setUpServer();
+		await this._setupServer();
 
 		const httpServerPromise = new Promise(resolve => {
 			this.httpServer.listen(80, () => {

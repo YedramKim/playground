@@ -1,6 +1,6 @@
 {
 	"include": [
-		"webpack/*.ts"
+		"**/*.ts"
 	],
 	"exclude": [
 		"node_modules"

@@ -15,12 +15,12 @@ const config = {
 };
 
 class Server {
-	constructor() {
+	constructor(context = {}) {
 		this.app = express();
 		this.router = express.Router();
 		this.httpServer = http.createServer(this.app);
 
-		this.context = {};
+		this.context = context;
 		this.middlewares = {};
 	}
 
@@ -28,6 +28,7 @@ class Server {
 		await this._setMiddleware();
 		this._setGlobalPreMiddlewares();
 		await this._setRoutes();
+		this._setErrorHandler();
 		this._setGlobalPostMiddleware();
 	}
 
@@ -35,7 +36,6 @@ class Server {
 		const middlewarePath = path.resolve(__dirname, 'middleware');
 
 		const middlewarePaths = await fileSearch(middlewarePath);
-		const fileRegExp = /.+\/(.+)\.js$/;
 
 		this.middlewares = middlewarePaths.reduce((middlewares, middlewarePath) => {
 			const middleware = require(middlewarePath);
@@ -105,6 +105,14 @@ class Server {
 				throw new Error(`${path}의 라우터에서 올바르지 않은 method를 사용하려고 했습니다.`);
 			}
 		}
+	}
+
+	_setErrorHandler() {
+		this.app.use((error, req, res, next) => {
+			console.info('에러 발생....');
+			console.error(error);
+			next();
+		});
 	}
 
 	_setGlobalPostMiddleware() {

@@ -13,7 +13,7 @@ const fileSearch = async (directoryPath = '', fileRegExp = /\.js$/) => {
 
 	const results = await Promise.all(resultPromises);
 
-	return results.reduce((fileStack, result) => fileStack.concat(result), []);
+	return results.filter(result => fileRegExp.test(result)).reduce((fileStack, result) => fileStack.concat(result), []);
 };
 
 module.exports = fileSearch;

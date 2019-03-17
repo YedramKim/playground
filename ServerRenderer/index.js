@@ -30,10 +30,10 @@ class ServerRenderer {
 	}
 
 	setTitle(title) {
-		this.defaultContext.title = title;
+		this.title = title;
 	}
 
-	computeMetaList(metaList) {
+	_computeMetaList(metaList) {
 		return metaList.map(meta => {
 			const metaStr = Object.entries(meta).map(([key, value]) => `${key}="${value}"`).join(' ');
 
@@ -45,11 +45,11 @@ class ServerRenderer {
 		metaList = [],
 		storeCommitList = [],
 		...otherContext
-	}) {
+	} = {}) {
 
 		const html = await rendererMap[this.template].renderToString({
 			title: this.title,
-			meta: this.computeMetaList(metaList),
+			meta: this._computeMetaList(metaList),
 			location: this.location,
 			storeCommitList,
 			...this.context,
